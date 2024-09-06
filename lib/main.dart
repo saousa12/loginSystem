@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:save_storage/screen/discount_page.dart';
+import 'package:save_storage/screen/profile_page.dart';
 import 'package:save_storage/utils/app_syles.dart';
 
 void main() {
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'My App',
       theme: ThemeData(primaryColor: primary),
-      home: DiscountPage(),
+      home: const ProfilePage(),
     );
   }
 }

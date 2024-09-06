@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:save_storage/utils/app_syles.dart';
 
 class DiscountPage extends StatefulWidget {
   DiscountPage({super.key});
@@ -104,7 +103,7 @@ class _DiscountPageState extends State<DiscountPage> {
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 5),
                 ),
-                Text(
+                const Text(
                   "ส่วนลดทั้งหมด",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
@@ -184,7 +183,7 @@ class _DiscountPageState extends State<DiscountPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  child: CircleAvatar(
+                  child: const CircleAvatar(
                     maxRadius: 25,
                     backgroundImage: NetworkImage(
                       "https://th.bing.com/th/id/OIP.5h9Nb8LU6gN1_oT3pbJRSQHaGR?rs=1&pid=ImgDetMain",
@@ -201,7 +200,7 @@ class _DiscountPageState extends State<DiscountPage> {
                     children: [
                       Text(
                         data["title"],
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 18,
                             color: Colors.black,
                             fontWeight: FontWeight.bold),
@@ -349,7 +348,7 @@ class _DiscountPageState extends State<DiscountPage> {
                     onTap: () {
                       print("you are tap");
                     },
-                    child: Text(
+                    child: const Text(
                       "เงื่อนไข",
                       style: TextStyle(
                           color: Colors.blueAccent,
