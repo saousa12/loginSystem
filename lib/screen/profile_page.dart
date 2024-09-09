@@ -19,10 +19,10 @@ TextEditingController emailController = TextEditingController();
 
 Map<String, dynamic> profile = {
   "image": "",
-  "fname": "อุษา",
-  "lname": "จุ้ยแหวว",
+  "fname": "ดาว",
+  "lname": "ท้องฟ้า",
   "phone": "1234",
-  "email": "ousa.j@gmail.com",
+  "email": "dao@gmail.com",
 };
 bool isButton = false;
 
@@ -36,7 +36,14 @@ class _ProfilePageState extends State<ProfilePage> {
     fnameController.text = profile["fname"];
     lnameController.text = profile["lname"];
     phoneController.text = profile["phone"];
-    emailController.text = profile["email"];
+    emailController.text = "Hello world";
+  }
+
+  bool checkButton() {
+    if (emailController.text.isNotEmpty) {
+      return true;
+    }
+    return false;
   }
 
   void pickImage(ImageSource source) async {
@@ -52,140 +59,6 @@ class _ProfilePageState extends State<ProfilePage> {
     } on PlatformException catch (e) {
       print("Failed to pick image: $e");
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.blueGrey.shade50,
-        appBar: AppBar(
-          title: const Text(
-            "แก้ไขโปรไฟล์",
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          centerTitle: true,
-          leading: Container(
-            padding: const EdgeInsets.all(12.0),
-            child: CircleAvatar(
-              backgroundColor: Colors.white,
-              child: IconButton(
-                icon: const Icon(
-                  Icons.arrow_back_ios_sharp,
-                  size: 15,
-                  color: Colors.blue,
-                ),
-                onPressed: () {
-                  print("you are tap");
-                },
-              ),
-            ),
-          ),
-          backgroundColor: Colors.blueGrey.shade50,
-        ),
-        body: ListView(
-          children: [
-            Container(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child: ImageContainer()),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "ข้อมูลโปรไฟล์",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 10.0),
-                  ),
-                  Column(
-                    children: [
-                      profileContainer("ชื่อ", fnameController),
-                      Container(
-                        margin: const EdgeInsets.only(top: 10.0),
-                      ),
-                      profileContainer("นามสกุล", lnameController),
-                      Container(
-                        margin: const EdgeInsets.only(top: 10.0),
-                      ),
-                      profileContainer("เบอร์โทรศัพท์", phoneController),
-                      Container(
-                        margin: const EdgeInsets.only(top: 10.0),
-                      ),
-                      profileContainer("อีเมล", emailController),
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ],
-        ),
-        bottomNavigationBar: BottomAppBar(
-          color: Colors.white,
-          shadowColor: Colors.green,
-          child: new Row(
-            children: [
-              Expanded(
-                  child: OutlinedButton(
-                      onPressed: isButton
-                          ? () {
-                              fnameController.text = profile["fname"];
-                              lnameController.text = profile["lname"];
-                              phoneController.text = profile["phone"];
-                              emailController.text = profile["email"];
-                              setState(() {
-                                isButton = false;
-                              });
-                            }
-                          : null,
-                      style: OutlinedButton.styleFrom(
-                          side: BorderSide(
-                              color: isButton
-                                  ? Colors.blue
-                                  : Colors.grey.shade300)),
-                      child: Text(
-                        "ยกเลิก",
-                        style: TextStyle(
-                            color:
-                                isButton ? Colors.blue : Colors.grey.shade300,
-                            fontWeight: FontWeight.bold),
-                      ))),
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 10),
-              ),
-              Expanded(
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue),
-                      onPressed: isButton
-                          ? () {
-                              setState(() {
-                                profile["fname"] = fnameController.text;
-                                profile["lname"] = lnameController.text;
-                                profile["phone"] = phoneController.text;
-                                profile["email"] = emailController.text;
-                              });
-                              // print("=====> $profile");
-                              OpenDialog(context);
-                              setState(() {
-                                isButton = false;
-                              });
-                            }
-                          : null,
-                      child: const Text(
-                        "บันทึก",
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
-                      ))),
-            ],
-          ),
-        ));
   }
 
   Widget ImageContainer() {
@@ -266,6 +139,195 @@ class _ProfilePageState extends State<ProfilePage> {
       },
     );
   }
+
+  Future OpenDialog(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        height: 80,
+                        margin: const EdgeInsets.only(top: 40),
+                        child: const Image(
+                            image: AssetImage("assets/images/R.png")),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(vertical: 20),
+                      ),
+                      const Text(
+                        "แก้ไขโปรไฟล์สำเร็จ",
+                        style: TextStyle(
+                            fontSize: 12, fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                ),
+                Positioned(
+                  right: 0.0,
+                  top: 0.0,
+                  child: IconButton(
+                    icon: const Icon(
+                      Icons.close,
+                      color: Colors.blue,
+                      size: 15,
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.blueGrey.shade50,
+        appBar: AppBar(
+          title: const Text(
+            "แก้ไขโปรไฟล์",
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          centerTitle: true,
+          leading: Container(
+            padding: const EdgeInsets.all(12.0),
+            child: CircleAvatar(
+              backgroundColor: Colors.white,
+              child: IconButton(
+                icon: const Icon(
+                  Icons.arrow_back_ios_sharp,
+                  size: 15,
+                  color: Colors.blue,
+                ),
+                onPressed: () {
+                  print("You are tap");
+                },
+              ),
+            ),
+          ),
+          backgroundColor: Colors.blueGrey.shade50,
+        ),
+        body: ListView(
+          children: [
+            Container(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: ImageContainer()),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "ข้อมูลโปรไฟล์",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 10.0),
+                  ),
+                  Column(
+                    children: [
+                      profileContainer("ชื่อ", fnameController),
+                      Container(
+                        margin: const EdgeInsets.only(top: 10.0),
+                      ),
+                      profileContainer("นามสกุล", lnameController),
+                      Container(
+                        margin: const EdgeInsets.only(top: 10.0),
+                      ),
+                      profileContainer("เบอร์โทรศัพท์", phoneController),
+                      Container(
+                        margin: const EdgeInsets.only(top: 10.0),
+                      ),
+                      profileContainer("อีเมล", emailController),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+        bottomNavigationBar: BottomAppBar(
+          color: Colors.white,
+          child: new Row(
+            children: [
+              Expanded(
+                  child: OutlinedButton(
+                      onPressed: isButton
+                          ? () {
+                              fnameController.text = profile["fname"];
+                              lnameController.text = profile["lname"];
+                              phoneController.text = profile["phone"];
+                              emailController.text = profile["email"];
+                              setState(() {
+                                isButton = false;
+                              });
+                            }
+                          : null,
+                      style: OutlinedButton.styleFrom(
+                          side: BorderSide(
+                              color: isButton
+                                  ? Colors.blue
+                                  : Colors.grey.shade300)),
+                      child: Text(
+                        "ยกเลิก",
+                        style: TextStyle(
+                            color:
+                                isButton ? Colors.blue : Colors.grey.shade300,
+                            fontWeight: FontWeight.bold),
+                      ))),
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 10),
+              ),
+              Expanded(
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue),
+                      onPressed: isButton
+                          ? () {
+                              setState(() {
+                                profile["fname"] = fnameController.text;
+                                profile["lname"] = lnameController.text;
+                                profile["phone"] = phoneController.text;
+                                profile["email"] = emailController.text;
+                              });
+                              OpenDialog(context);
+                              setState(() {
+                                isButton = false;
+                              });
+                            }
+                          : null,
+                      child: const Text(
+                        "บันทึก",
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      ))),
+            ],
+          ),
+        ));
+  }
 }
 
 Widget profileContainer(String label, TextEditingController controller) {
@@ -285,70 +347,11 @@ Widget profileContainer(String label, TextEditingController controller) {
               contentPadding: EdgeInsets.symmetric(horizontal: 10)),
           controller: controller,
           onChanged: (value) {
-            print(value);
             isButton = value.isNotEmpty;
-            print("isbtn $isButton");
           },
           style: const TextStyle(fontSize: 16),
         ),
       ],
     ),
-  );
-}
-
-Future OpenDialog(BuildContext context) {
-  return showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return Dialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(10),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      height: 80,
-                      margin: const EdgeInsets.only(top: 40),
-                      child:
-                          const Image(image: AssetImage("assets/images/R.png")),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.symmetric(vertical: 20),
-                    ),
-                    const Text(
-                      "แก้ไขโปรไฟล์สำเร็จ",
-                      style:
-                          TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ),
-              Positioned(
-                right: 0.0,
-                top: 0.0,
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.close,
-                    color: Colors.blue,
-                    size: 15,
-                  ),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-    },
   );
 }
